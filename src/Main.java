@@ -22,6 +22,12 @@ public class Main {
             System.out.println(i+"++++++++++加入");
             inCount++;
         }
+        TimerTask timerTask = new TimerTask(5000,()->{
+            countDownLatch.countDown();
+            int index = addRun();
+            System.out.println(index+"----------执行");
+        });
+        timer.addTask(timerTask);
         try {
             countDownLatch.await();
             System.out.println("inCount" + inCount);

@@ -8,7 +8,7 @@ import java.util.concurrent.DelayQueue;
 public class TimeWheel {
 
     /**
-     * 一个时间槽的时间
+     * 一个时间槽的范围
      */
     private long tickMs;
 
