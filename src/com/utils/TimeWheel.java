@@ -78,20 +78,20 @@ public class TimeWheel {
         //过期任务直接执行
         if (expiration < currentTime + tickMs) {
             return false;
-        } else {
+        } else if (expiration < currentTime + interval) {
             //当前时间轮可以容纳该任务 加入时间槽
-            if (expiration < currentTime + interval) {
-                int virtualId = (int) (expiration / tickMs);
-                TimerTaskList timerTaskList = timerTaskLists[virtualId % wheelSize];
-                timerTaskList.addTask(timerTask);
-                if (timerTaskList.setExpiration(virtualId * tickMs)) {
-                    delayQueue.offer(timerTaskList);
-                }
-            } else {
-                //放到上一层的时间轮
-                TimeWheel timeWheel = getOverflowWheel();
-                timeWheel.addTask(timerTask);
+            Long virtualId = expiration / tickMs;
+            int index = (int) (virtualId % wheelSize);
+            System.out.println("tickMs:" + tickMs + "------index:" + index + "------expiration:" + expiration);
+            TimerTaskList timerTaskList = timerTaskLists[index];
+            timerTaskList.addTask(timerTask);
+            if (timerTaskList.setExpiration(virtualId * tickMs)) {
+                delayQueue.offer(timerTaskList);
             }
+        } else {
+            //放到上一层的时间轮
+            TimeWheel timeWheel = getOverflowWheel();
+            timeWheel.addTask(timerTask);
         }
         return true;
     }

@@ -34,7 +34,7 @@ public class Timer {
      * 构造函数
      */
     public Timer() {
-        timeWheel = new TimeWheel(10, 20, System.currentTimeMillis(), delayQueue);
+        timeWheel = new TimeWheel(1, 20, System.currentTimeMillis(), delayQueue);
         workerThreadPool = Executors.newFixedThreadPool(100);
         bossThreadPool = Executors.newFixedThreadPool(1);
         //20ms获取一次过期任务

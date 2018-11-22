@@ -15,16 +15,28 @@ public class TimerTask {
      */
     private Runnable task;
 
+    /**
+     * 时间槽
+     */
     protected TimerTaskList timerTaskList;
 
+    /**
+     * 下一个节点
+     */
     protected TimerTask next;
 
+    /**
+     * 上一个节点
+     */
     protected TimerTask pre;
 
+    /**
+     * 描述
+     */
     public String desc;
 
     public TimerTask(long delayMs, Runnable task) {
-        this.delayMs = delayMs;
+        this.delayMs = System.currentTimeMillis() + delayMs;
         this.task = task;
         this.timerTaskList = null;
         this.next = null;
