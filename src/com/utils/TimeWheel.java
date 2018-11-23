@@ -86,6 +86,7 @@ public class TimeWheel {
             TimerTaskList timerTaskList = timerTaskLists[index];
             timerTaskList.addTask(timerTask);
             if (timerTaskList.setExpiration(virtualId * tickMs)) {
+                //添加到delayQueue中
                 delayQueue.offer(timerTaskList);
             }
         } else {
